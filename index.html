@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reel Desk — Explainer Video Factory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="topbar">
+  <div class="topbar-mark">
+    <span class="sprocket-row" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </span>
+    <span class="wordmark">REEL DESK</span>
+  </div>
+  <div class="status-light" id="global-status" data-state="standby">
+    <span class="light-dot"></span>
+    <span class="light-label" id="global-status-label">STANDBY</span>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow">Internal tool — Team Production Line</p>
+    <h1>Hand it a keyword.<br>Walk away with a video.</h1>
+    <p class="hero-sub">Script, voice, footage, and captions — assembled automatically, vertical and ready to post. No editing software required.</p>
+  </section>
+
+  <section class="desk">
+    <div class="desk-panel input-panel">
+      <div class="panel-head">
+        <span class="panel-index">01</span>
+        <span class="panel-title">Topic</span>
+      </div>
+
+      <label class="field-label" for="topic">What's the video about?</label>
+      <input type="text" id="topic" placeholder="e.g. why yacht engines burn so much fuel" autocomplete="off">
+
+      <details class="advanced">
+        <summary>Write my own script instead</summary>
+        <label class="field-label" for="manual-script">Script (optional — skips AI script writing)</label>
+        <textarea id="manual-script" rows="5" placeholder="Paste your own narration text here..."></textarea>
+      </details>
+
+      <button id="generate-btn" class="generate-btn">
+        <span>Generate video</span>
+      </button>
+      <p class="field-hint" id="form-error"></p>
+    </div>
+
+    <div class="desk-panel console-panel">
+      <div class="panel-head">
+        <span class="panel-index">02</span>
+        <span class="panel-title">Production Log</span>
+      </div>
+
+      <div class="console" id="console">
+        <p class="console-idle">Waiting for a topic...</p>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+  </section>
+
+  <span class="sprocket-divider" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </span>
+
+  <section class="result" id="result-section" hidden>
+    <div class="panel-head">
+      <span class="panel-index">03</span>
+      <span class="panel-title">Output</span>
+    </div>
+    <div class="result-body">
+      <video id="result-video" controls playsinline></video>
+      <div class="result-meta">
+        <p class="result-topic" id="result-topic"></p>
+        <a id="download-link" class="download-btn" download>Download MP4</a>
+        <button class="secondary-btn" id="another-btn">Make another</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span class="sprocket-row" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </span>
+  <span>Reel Desk — internal video production line</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
