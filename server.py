@@ -112,7 +112,16 @@ def generate_voiceover(job_id: str, script: str, out_dir: Path):
             f.write(submaker.get_srt())
 
     asyncio.run(_run())
-    log(job_id, "Voiceover ready")
+
+    if not audio_path.exists() or audio_path.stat().st_size == 0:
+        raise RuntimeError(
+            "Voiceover file came back empty. This usually means the server's "
+            "network couldn't reach Microsoft's TTS service (Edge TTS can be "
+            "blocked on some cloud hosts). Try again, or switch to a paid TTS "
+            "API (e.g. ElevenLabs) if this keeps happening."
+        )
+
+    log(job_id, f"Voiceover ready ({audio_path.stat().st_size} bytes)")
     return audio_path, srt_path
 
 
@@ -122,7 +131,13 @@ def get_audio_duration(audio_path: Path) -> float:
          "-of", "default=noprint_wrapper=1:nokey=1", str(audio_path)],
         capture_output=True, text=True,
     )
-    return float(result.stdout.strip())
+    output = result.stdout.strip()
+    if not output:
+        raise RuntimeError(
+            f"ffprobe couldn't read the audio duration. "
+            f"stderr: {result.stderr.strip()[:300]}"
+        )
+    return float(output)
 
 
 def fetch_stock_clips(job_id: str, topic: str, out_dir: Path, count: int = 5):
